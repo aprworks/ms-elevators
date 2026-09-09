@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { business, whyChooseUs } from "@/lib/content";
 import PageHeader from "@/components/PageHeader";
 import FeatureIcon from "@/components/FeatureIcon";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: `About Us | ${business.name}`,
@@ -43,16 +44,16 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-10 flex items-center gap-4 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500 text-lg font-bold text-white">
+        <div className="mt-10 flex items-center gap-4 rounded-2xl border border-brand-200 bg-brand-50 p-6">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-600 text-lg font-bold text-white">
             {business.rating}★
           </div>
           <div>
-            <p className="text-sm font-semibold text-amber-900">
+            <p className="text-sm font-semibold text-brand-900">
               Rated {business.rating} out of 5 from {business.reviewCount}+
               customer ratings
             </p>
-            <p className="mt-0.5 text-sm text-amber-700">
+            <p className="mt-0.5 text-sm text-brand-700">
               Consistent, dependable service across Erragadda and Hyderabad.
             </p>
           </div>
@@ -63,20 +64,19 @@ export default function AboutPage() {
         </h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
           {whyChooseUs.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-amber-400">
-                <FeatureIcon name={item.icon} />
-              </div>
-              <h3 className="mt-4 text-base font-semibold text-slate-900">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {item.description}
-              </p>
-            </div>
+            <Card key={item.title} className="rounded-2xl p-6 shadow-sm">
+              <CardContent className="p-0">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white">
+                  <FeatureIcon name={item.icon} />
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

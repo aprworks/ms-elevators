@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { business } from "@/lib/content";
 
 const geistSans = Geist({
@@ -27,11 +29,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white text-slate-900">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <FloatingContact />
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
+        <TooltipProvider delay={200}>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <FloatingContact />
+        </TooltipProvider>
+        <Toaster position="bottom-center" />
       </body>
     </html>
   );
