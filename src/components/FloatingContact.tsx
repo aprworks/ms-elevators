@@ -17,7 +17,7 @@ export default function FloatingContact() {
               aria-label="Chat on WhatsApp"
               className={cn(
                 buttonVariants(),
-                "size-12 rounded-full bg-green-500 p-0 text-white shadow-lg shadow-green-500/30 transition-transform hover:scale-105 hover:bg-green-600"
+                "size-13 rounded-full bg-green-500 p-0 text-white shadow-xl shadow-green-500/30 ring-1 ring-white/20 transition-transform hover:scale-105 hover:bg-green-600"
               )}
             />
           }
@@ -37,7 +37,7 @@ export default function FloatingContact() {
               aria-label={`Call ${business.name}`}
               className={cn(
                 buttonVariants(),
-                "size-12 rounded-full p-0 shadow-lg shadow-brand-600/30 transition-transform hover:scale-105"
+                "size-13 rounded-full p-0 shadow-xl shadow-brand-600/30 ring-1 ring-white/20 transition-transform hover:scale-105"
               )}
             />
           }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Phone } from "lucide-react";
@@ -13,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -24,17 +26,39 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b transition-all duration-300",
+        scrolled
+          ? "border-ink-950/10 bg-paper-50/85 backdrop-blur-lg"
+          : "border-transparent bg-paper-50"
+      )}
+    >
+      <div
+        className={cn(
+          "mx-auto flex max-w-6xl items-center justify-between px-4 transition-[padding] duration-300 sm:px-6",
+          scrolled ? "py-3" : "py-5"
+        )}
+      >
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-lg font-bold text-brand-400 shadow-sm">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-950 text-lg font-bold text-brand-400 shadow-sm">
             MS
           </span>
           <span className="flex flex-col leading-tight">
-            <span className="text-lg font-bold tracking-tight text-slate-900">{business.name}</span>
-            <span className="text-xs text-slate-500">Erragadda, Hyderabad</span>
+            <span className="font-display text-lg font-semibold tracking-tight text-ink-950">
+              {business.name}
+            </span>
+            <span className="text-xs text-mist-500">Erragadda, Hyderabad</span>
           </span>
         </Link>
 
@@ -45,11 +69,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={cn(
+                  "rounded-full px-4 py-2 text-sm font-medium transition-colors",
                   active
                     ? "bg-brand-50 text-brand-700"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+                    : "text-ink-700/70 hover:bg-paper-100 hover:text-ink-950"
+                )}
               >
                 {link.label}
               </Link>
@@ -73,15 +98,15 @@ export default function Header() {
             render={
               <button
                 aria-label="Open menu"
-                className="flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 md:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-ink-950/10 md:hidden"
               />
             }
           >
             <Menu className="h-5 w-5" />
           </SheetTrigger>
           <SheetContent side="right" className="w-full gap-0 sm:max-w-xs">
-            <SheetHeader className="border-b border-slate-100">
-              <SheetTitle>{business.name}</SheetTitle>
+            <SheetHeader className="border-b border-ink-950/10">
+              <SheetTitle className="font-display">{business.name}</SheetTitle>
             </SheetHeader>
             <nav className="flex flex-1 flex-col gap-1 px-4 py-4">
               {navLinks.map((link) => {
@@ -89,11 +114,12 @@ export default function Header() {
                 return (
                   <SheetClose key={link.href} render={<Link href={link.href} />}>
                     <span
-                      className={`block rounded-lg px-3 py-2.5 text-sm font-medium ${
+                      className={cn(
+                        "block rounded-lg px-3 py-2.5 text-sm font-medium",
                         active
                           ? "bg-brand-50 text-brand-700"
-                          : "text-slate-700 hover:bg-slate-50"
-                      }`}
+                          : "text-ink-700 hover:bg-paper-100"
+                      )}
                     >
                       {link.label}
                     </span>

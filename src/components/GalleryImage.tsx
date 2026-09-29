@@ -29,13 +29,13 @@ export default function GalleryImage({
         disabled={errored}
         aria-label={`View larger image: ${item.label}`}
         className={cn(
-          "group relative aspect-square w-full overflow-hidden rounded-xl bg-slate-100 text-left disabled:cursor-default",
+          "group relative aspect-square w-full overflow-hidden rounded-2xl bg-paper-100 text-left disabled:cursor-default",
           className
         )}
       >
-        {!loaded && !errored && <Skeleton className="absolute inset-0 rounded-xl" />}
+        {!loaded && !errored && <Skeleton className="absolute inset-0 rounded-2xl" />}
         {errored ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 text-slate-400">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 text-mist-400">
             <ImageOff className="h-6 w-6" />
             <span className="px-2 text-center text-[11px] font-medium">{item.label}</span>
           </div>
@@ -49,13 +49,13 @@ export default function GalleryImage({
               onLoad={() => setLoaded(true)}
               onError={() => setErrored(true)}
               className={cn(
-                "object-cover transition-all duration-300 group-hover:scale-110",
+                "object-cover transition-transform duration-500 ease-out group-hover:scale-110",
                 loaded ? "opacity-100" : "opacity-0"
               )}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent transition-opacity group-hover:from-slate-950/90" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/20 to-transparent transition-opacity group-hover:from-ink-950/90" />
             <Expand className="absolute right-2 top-2 h-4 w-4 text-white opacity-0 transition-opacity group-hover:opacity-90" />
-            <span className="absolute inset-x-0 bottom-0 px-2 pb-2 text-center text-[11px] font-medium text-white">
+            <span className="absolute inset-x-0 bottom-0 px-2 pb-2 text-center text-[11px] font-medium tracking-wide text-white">
               {item.label}
             </span>
           </>
@@ -65,10 +65,10 @@ export default function GalleryImage({
       {!errored && (
         <DialogContent className="sm:max-w-xl" showCloseButton>
           <DialogTitle className="sr-only">{item.label}</DialogTitle>
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-100">
+          <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-paper-100">
             <Image src={item.image} alt={item.label} fill sizes="90vw" className="object-cover" />
           </div>
-          <p className="text-center text-sm font-medium text-slate-700">{item.label}</p>
+          <p className="text-center text-sm font-medium text-ink-700">{item.label}</p>
         </DialogContent>
       )}
     </Dialog>
